@@ -1,0 +1,539 @@
+{
+  "name": "projects/96089615088/locations/europe-west4/integrations/mysql-datadump-demo/versions/af2e5650-fdcf-4eb0-b897-0519ecc76389",
+  "description": "\n # Overview\nMySQL Data Fetching and Processing\n\n## Orchestration\nThis integration handles data fetching from a MySQL database and subsequent processing.\n\n**Main Controller Trigger:** This workflow is triggered via an API call named \"Main Controller\". It initiates a \"While Loop\" task, which likely iterates through data retrieved from the MySQL database.\n\n**MySQL Private Trigger:** This workflow is triggered by a private trigger associated with a MySQL database. It maps the input token to the \"NextPageToken\" field, then uses the \"MySQL Connector\" task to fetch data from the database. Finally, it maps the \"NextPageToken\" field to the output, potentially indicating the next page of data to be fetched in the loop.",
+  "updateTime": "2024-11-27T17:11:00.499Z",
+  "createTime": "2024-11-27T17:07:22.787Z",
+  "lastModifierEmail": "harishgoogler@google.com",
+  "triggerConfigs": [{
+    "label": "Main Controller",
+    "startTasks": [{
+      "taskId": "2"
+    }],
+    "properties": {
+      "Trigger name": "mysql-datadump-demo_API_1"
+    },
+    "triggerType": "API",
+    "triggerNumber": "2",
+    "triggerId": "api_trigger/mysql-datadump-demo_API_1",
+    "position": {
+      "x": -644,
+      "y": -303
+    }
+  }, {
+    "label": "MySQL - Private Trigger",
+    "startTasks": [{
+      "taskId": "3"
+    }],
+    "properties": {
+      "Trigger name": "mysql-private-trigger"
+    },
+    "triggerType": "PRIVATE_TRIGGER",
+    "triggerNumber": "1",
+    "triggerId": "private_trigger/mysql-private-trigger",
+    "position": {
+      "x": -292,
+      "y": -302
+    }
+  }, {
+    "label": "Write to BQ - Private Trigger",
+    "startTasks": [{
+      "taskId": "7"
+    }],
+    "properties": {
+      "Trigger name": "writetobq-privatetrigger"
+    },
+    "triggerType": "PRIVATE_TRIGGER",
+    "triggerNumber": "3",
+    "triggerId": "private_trigger/writetobq-privatetrigger",
+    "position": {
+      "x": 42,
+      "y": -308
+    }
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "1",
+    "parameters": {
+      "listEntitiesSortByColumns": {
+        "key": "listEntitiesSortByColumns",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesSortByColumns`$"
+        }
+      },
+      "filterClause": {
+        "key": "filterClause",
+        "value": {
+          "stringValue": "$`Task_1_filterClause`$"
+        }
+      },
+      "listEntitiesPageToken": {
+        "key": "listEntitiesPageToken",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesPageToken`$"
+        }
+      },
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "contacts"
+        }
+      },
+      "listEntitiesPageSize": {
+        "key": "listEntitiesPageSize",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesPageSize`$"
+        }
+      },
+      "listEntitiesNextPageToken": {
+        "key": "listEntitiesNextPageToken",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesNextPageToken`$"
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/bap-emea-apigee-11/locations/europe-west4/connections/mysql-connection"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "LIST_ENTITIES"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/bap-emea-apigee-11/locations/global/providers/gcp/connectors/cloudsql-mysql/versions/1"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "4"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "MySQL Connector",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -292,
+      "y": -114
+    }
+  }, {
+    "task": "SubWorkflowWhileLoopV2Task",
+    "taskId": "2",
+    "parameters": {
+      "triggerId": {
+        "key": "triggerId",
+        "value": {
+          "stringValue": "private_trigger/mysql-private-trigger"
+        }
+      },
+      "aggregatorParameterMapping": {
+        "key": "aggregatorParameterMapping"
+      },
+      "loopMetadata": {
+        "key": "loopMetadata",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_2_loopMetadata`$"]
+          }
+        }
+      },
+      "disableEucPropagation": {
+        "key": "disableEucPropagation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "whileCondition": {
+        "key": "whileCondition",
+        "value": {
+          "stringValue": "$NextPageToken$ !\u003d \"\" OR $`Task_2_loopMetadata`$.current_iteration_count \u003d 0"
+        }
+      },
+      "workflowName": {
+        "key": "workflowName",
+        "value": {
+          "stringValue": "mysql-datadump-demo"
+        }
+      },
+      "requestParameterMapping": {
+        "key": "requestParameterMapping",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.ParameterMap\",\n  \"entries\": [{\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"NextPageToken\"\n      }\n    },\n    \"value\": {\n      \"literalValue\": {\n        \"stringValue\": \"NextPageTokenSubIntegration\"\n      }\n    }\n  }]\n}"
+        }
+      },
+      "overrideParameterMapping": {
+        "key": "overrideParameterMapping",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.ParameterMap\",\n  \"entries\": [{\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"NextPageTokenSubIntegration\"\n      }\n    },\n    \"value\": {\n      \"literalValue\": {\n        \"stringValue\": \"NextPageToken\"\n      }\n    }\n  }]\n}"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "While Loop",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -650,
+      "y": -161
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "3",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$NextPageTokenSubIntegration$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_listEntitiesPageToken`$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "1"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Map Input Token to NextPageToken",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -292,
+      "y": -203
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "4",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$`Task_1_listEntitiesNextPageToken`$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$NextPageTokenSubIntegration$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$`Task_1_connectorOutputPayload`$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$sql-data-output-array$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "6"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Map NextPageToken to Output",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -292,
+      "y": -17
+    }
+  }, {
+    "task": "GenericConnectorTask",
+    "taskId": "5",
+    "parameters": {
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "mysql_db_dump_demo_tab"
+        }
+      },
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_5_connectorInputPayload`$"
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/bap-emea-apigee-11/locations/europe-west4/connections/mysql-dump-demo-conn"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_5_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "CREATE_ENTITY"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/bap-emea-apigee-11/locations/global/providers/gcp/connectors/bigquery/versions/1"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "WritetoBQ - Connectors",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 51,
+      "y": -125
+    }
+  }, {
+    "task": "SubWorkflowScatterGatherTask",
+    "taskId": "6",
+    "parameters": {
+      "ignoreIndividualFailures": {
+        "key": "ignoreIndividualFailures",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "maxParallelScatters": {
+        "key": "maxParallelScatters",
+        "value": {
+          "intValue": "50"
+        }
+      },
+      "timeInMsToSchedule": {
+        "key": "timeInMsToSchedule",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "listToScatter": {
+        "key": "listToScatter",
+        "value": {
+          "stringValue": "$sql-data-output-array$"
+        }
+      },
+      "subworkflowInput": {
+        "key": "subworkflowInput",
+        "value": {
+          "stringValue": "sql-data-input"
+        }
+      },
+      "triggerId": {
+        "key": "triggerId",
+        "value": {
+          "stringValue": "private_trigger/writetobq-privatetrigger"
+        }
+      },
+      "staggeredScheduleByBatch": {
+        "key": "staggeredScheduleByBatch",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "workflowName": {
+        "key": "workflowName",
+        "value": {
+          "stringValue": "mysql-datadump-demo"
+        }
+      },
+      "scatterResponseJson": {
+        "key": "scatterResponseJson",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_6_scatterResponseJson`$"]
+          }
+        }
+      },
+      "executionStrategy": {
+        "key": "executionStrategy",
+        "value": {
+          "stringValue": "ASYNC"
+        }
+      },
+      "disableEucPropagation": {
+        "key": "disableEucPropagation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "requestParamsMap": {
+        "key": "requestParamsMap"
+      },
+      "responseAggregatorMap": {
+        "key": "responseAggregatorMap"
+      },
+      "scatterElementParam": {
+        "key": "scatterElementParam",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "inputMap": {
+        "key": "inputMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "aggregatorMap": {
+        "key": "aggregatorMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "For Each Parallel",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -294,
+      "y": 87
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "7",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.Phone$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.phone$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.SalesforceID$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.salesforceid$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.Pkey$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"doubleFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.primary_key$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.InsertTimeStamp$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.db_insertimestamp$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.LastName$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.lastname$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$sql-data-input.Name$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_5_connectorInputPayload`.name$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "5"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Data Mapping",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 54,
+      "y": -211
+    }
+  }],
+  "integrationParameters": [{
+    "key": "`ExecutionMode`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionMode`",
+    "isTransient": true
+  }, {
+    "key": "`ErrorInfo`",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"message\": \"\",\n  \"code\": 0.0\n}"
+    },
+    "displayName": "`ErrorInfo`",
+    "isTransient": true,
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`ExecutionId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionId`",
+    "isTransient": true
+  }, {
+    "key": "`IntegrationName`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`IntegrationName`",
+    "isTransient": true
+  }, {
+    "key": "`Region`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Region`",
+    "isTransient": true
+  }, {
+    "key": "`ProjectId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ProjectId`",
+    "isTransient": true
+  }, {
+    "key": "`Task_1_listEntitiesPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_listEntitiesPageToken`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_listEntitiesSortByColumns`",
+    "dataType": "STRING_ARRAY",
+    "displayName": "`Task_1_listEntitiesSortByColumns`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_filterClause`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_filterClause`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"type\": [\"array\"],\n  \"items\": {\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n      \"Phone\": {\n        \"type\": [\"string\", \"null\"]\n      },\n      \"SalesforceID\": {\n        \"type\": [\"string\", \"null\"]\n      },\n      \"InsertTimeStamp\": {\n        \"type\": [\"string\", \"null\"]\n      },\n      \"Pkey\": {\n        \"type\": \"integer\"\n      },\n      \"Name\": {\n        \"type\": \"string\"\n      },\n      \"LastName\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\"\n}"
+  }, {
+    "key": "`Task_1_listEntitiesNextPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_listEntitiesNextPageToken`",
+    "isTransient": true,
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_listEntitiesPageSize`",
+    "dataType": "INT_VALUE",
+    "defaultValue": {
+      "intValue": "50"
+    },
+    "displayName": "`Task_1_listEntitiesPageSize`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_2_loopMetadata`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_2_loopMetadata`",
+    "isTransient": true,
+    "producer": "1_2",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"sub_integration_execution_ids\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"current_iteration_count\": {\n      \"type\": \"number\"\n    },\n    \"failure_message\": {\n      \"type\": \"string\"\n    },\n    \"failure_location\": {\n      \"type\": \"string\"\n    },\n    \"current_element\": {\n      \"type\": [\"string\", \"number\", \"object\", \"array\"]\n    }\n  }\n}"
+  }, {
+    "key": "NextPageToken",
+    "dataType": "STRING_VALUE",
+    "displayName": "NextPageToken"
+  }, {
+    "key": "NextPageTokenSubIntegration",
+    "dataType": "STRING_VALUE",
+    "displayName": "NextPageTokenSubIntegration",
+    "inputOutputType": "IN_OUT"
+  }, {
+    "key": "sql-data-output-array",
+    "dataType": "JSON_VALUE",
+    "displayName": "sql-data-output-array"
+  }, {
+    "key": "sql-data-input",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n}"
+    },
+    "displayName": "sql-data-input",
+    "inputOutputType": "IN",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"Phone\": {\n      \"type\": \"string\"\n    },\n    \"SalesforceID\": {\n      \"type\": \"string\"\n    },\n    \"Pkey\": {\n      \"type\": \"number\"\n    },\n    \"InsertTimeStamp\": {\n      \"type\": \"string\"\n    },\n    \"LastName\": {\n      \"type\": \"string\"\n    },\n    \"Name\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`Task_5_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_5_connectorInputPayload`",
+    "producer": "1_5",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"primary_key\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"name\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"lastname\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"phone\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"salesforceid\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"db_insertimestamp\": {\n      \"type\": [\"string\", \"null\"]\n    }\n  }\n}"
+  }, {
+    "key": "`Task_5_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_5_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_5"
+  }, {
+    "key": "`Task_6_scatterResponseJson`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_6_scatterResponseJson`",
+    "isTransient": true,
+    "producer": "1_6"
+  }],
+  "databasePersistencePolicy": "DATABASE_PERSISTENCE_ASYNC"
+}
