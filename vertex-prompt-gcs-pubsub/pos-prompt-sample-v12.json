@@ -1,0 +1,319 @@
+{
+  "name": "projects/251385050087/locations/europe-west2/integrations/pos-prompt-sample/versions/c8293d82-a083-4429-a4e2-53e3d4b4c29d",
+  "updateTime": "2024-12-01T16:19:00.693Z",
+  "createTime": "2024-12-01T16:14:26.548Z",
+  "lastModifierEmail": "harishgoogler@google.com",
+  "triggerConfigs": [{
+    "label": "Trigger POS Prompt",
+    "startTasks": [{
+      "taskId": "2"
+    }],
+    "properties": {
+      "Trigger name": "pos-prompt-sample_API_1"
+    },
+    "triggerType": "API",
+    "triggerNumber": "1",
+    "triggerId": "api_trigger/pos-prompt-sample_API_1",
+    "position": {
+      "x": 620,
+      "y": 453
+    }
+  }, {
+    "label": "Cloud Pub/Sub Trigger",
+    "startTasks": [{
+      "taskId": "3"
+    }],
+    "properties": {
+      "IP Project name": "standalone-ip-prod-testing-88",
+      "Subscription name": "standalone-ip-prod-testing-88_pos-new-file-gcs-topic",
+      "Service account": "vertex-ai-app-integration-sa@standalone-ip-prod-testing-88.iam.gserviceaccount.com"
+    },
+    "triggerType": "CLOUD_PUBSUB_EXTERNAL",
+    "triggerNumber": "2",
+    "triggerId": "cloud_pubsub_external_trigger/projects/standalone-ip-prod-testing-88/subscriptions/standalone-ip-prod-testing-88_pos-new-file-gcs-topic",
+    "position": {
+      "x": 140,
+      "y": 45
+    }
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "1",
+    "parameters": {
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorInputPayload`$"
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/europe-west2/connections/pos-vertex-ai-prompt"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "EXECUTE_ACTION"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/global/providers/gcp/connectors/vertexai/versions/1"
+        }
+      },
+      "actionName": {
+        "key": "actionName",
+        "value": {
+          "stringValue": "POST_v1/%7Bmodel%7D%3AstreamGenerateContent**notused**15048ec5-1a3c-48ff-8cad-fa412a5b88aa"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "POS Prompt Vertex AI",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 380,
+      "y": 725
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "2",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"literalValue\": {\n            \"stringValue\": \"projects/\"\n          }\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"CONCAT\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"referenceValue\": \"$`CONFIG_Vertex_Project_ID`$\"\n            },\n            \"transformationFunctions\": [{\n              \"functionType\": {\n                \"stringFunction\": {\n                  \"functionName\": \"CONCAT\"\n                }\n              },\n              \"parameters\": [{\n                \"initialValue\": {\n                  \"literalValue\": {\n                    \"stringValue\": \"/locations/\"\n                  }\n                },\n                \"transformationFunctions\": [{\n                  \"functionType\": {\n                    \"stringFunction\": {\n                      \"functionName\": \"CONCAT\"\n                    }\n                  },\n                  \"parameters\": [{\n                    \"initialValue\": {\n                      \"referenceValue\": \"$`CONFIG_Vertex_LOCATION_ID`$\"\n                    },\n                    \"transformationFunctions\": [{\n                      \"functionType\": {\n                        \"stringFunction\": {\n                          \"functionName\": \"CONCAT\"\n                        }\n                      },\n                      \"parameters\": [{\n                        \"initialValue\": {\n                          \"literalValue\": {\n                            \"stringValue\": \"/publishers/google/models/\"\n                          }\n                        },\n                        \"transformationFunctions\": [{\n                          \"functionType\": {\n                            \"stringFunction\": {\n                              \"functionName\": \"CONCAT\"\n                            }\n                          },\n                          \"parameters\": [{\n                            \"initialValue\": {\n                              \"referenceValue\": \"$`CONFIG_Vertex_MODEL_ID`$\"\n                            }\n                          }]\n                        }]\n                      }]\n                    }]\n                  }]\n                }]\n              }]\n            }]\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$Vertex_Path_Parameter$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$Vertex_Path_Parameter$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.Path parameters.model$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$request_content$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.RequestBody.contents$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "1"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Data Mapping",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 380,
+      "y": 589
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "3",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$CloudPubSubMessage$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$pub-sub-trigger-message-data$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$pub-sub-trigger-message-data.attributes.objectId$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$object_id_gcs$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$prompt-input-file-uri$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"CONCAT\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"referenceValue\": \"$object_id_gcs$\"\n            }\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$prompt-input-file-uri$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$prompt-input-file-uri$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$filedata-temp.fileUri$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "4"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "PubSub Data Mapping",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 181
+    }
+  }, {
+    "task": "JavaScriptTask",
+    "taskId": "4",
+    "parameters": {
+      "script": {
+        "key": "script",
+        "value": {
+          "stringValue": "\n/**\n * Function that is called during the JavaScript Task execution.\n * @param {IntegrationEvent} event\n */\nfunction executeScript(event) {\n\n    var jsonData \u003d [\n    {\n        \"role\": \"user\",\n        \"parts\": [\n            {\n                \"text\": \"User prompt is:\\nPlease identify the PoS document.\"\n            },\n            {\n                \"fileData\": {\n                    \"mimeType\": \"application/pdf\",\n                    \"fileUri\": \"NEW_FILE_URI\"\n                }\n            },\n            {\n                \"text\": \"Respond only as [Green, Blue, Miscellaneous, Incorrect Documentation]\"\n            }\n        ]\n    }\n    ];\n\n    var prompt_input_file_uri \u003d event.getParameter(\"prompt-input-file-uri\");\n    var content_string \u003d JSON.stringify(jsonData).replace(\"NEW_FILE_URI\", prompt_input_file_uri);\n    event.setParameter(\"request_content_tmp\",content_string);\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "5"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "JavaScript",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 317
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "5",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$request_content_tmp$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"TO_JSON\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$request_content$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "2"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Tmp To Main",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 453
+    }
+  }],
+  "integrationParameters": [{
+    "key": "`ExecutionMode`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionMode`",
+    "isTransient": true
+  }, {
+    "key": "`ErrorInfo`",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"message\": \"\",\n  \"code\": 0.0\n}"
+    },
+    "displayName": "`ErrorInfo`",
+    "isTransient": true,
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`ExecutionId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionId`",
+    "isTransient": true
+  }, {
+    "key": "`IntegrationName`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`IntegrationName`",
+    "isTransient": true
+  }, {
+    "key": "`Region`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Region`",
+    "isTransient": true
+  }, {
+    "key": "`ProjectId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ProjectId`",
+    "isTransient": true
+  }, {
+    "key": "`Task_1_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorInputPayload`",
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"RequestBody\": {\n      \"type\": \"object\",\n      \"description\": \"Request message for [PredictionService.GenerateContent].\",\n      \"properties\": {\n        \"tools\": {\n          \"type\": \"array\",\n          \"description\": \"Optional. A list of `Tools` the model may use to generate the next response. A `Tool` is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the model.\",\n          \"items\": {\n            \"type\": \"object\",\n            \"description\": \"Tool details that the model may use to generate response. A `Tool` is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the model. A Tool object should contain exactly one type of Tool (e.g FunctionDeclaration, Retrieval or GoogleSearchRetrieval).\"\n          }\n        },\n        \"contents\": {\n          \"type\": \"array\",\n          \"description\": \"Required. The content of the current conversation with the model. For single-turn queries, this is a single instance. For multi-turn queries, this is a repeated field that contains conversation history + latest request.\",\n          \"items\": {\n            \"type\": \"object\",\n            \"description\": \"The base structured datatype containing multi-part content of a message. A `Content` includes a `role` field designating the producer of the `Content` and a `parts` field containing multi-part data that contains the content of the message turn.\"\n          }\n        },\n        \"generationConfig\": {\n          \"type\": \"object\",\n          \"description\": \"Generation config.\"\n        },\n        \"safetySettings\": {\n          \"type\": \"array\",\n          \"description\": \"Optional. Per request settings for blocking unsafe content. Enforced on GenerateContentResponse.candidates.\",\n          \"items\": {\n            \"type\": \"object\",\n            \"description\": \"Safety settings.\"\n          }\n        },\n        \"systemInstruction\": {\n          \"type\": \"object\",\n          \"description\": \"The base structured datatype containing multi-part content of a message. A `Content` includes a `role` field designating the producer of the `Content` and a `parts` field containing multi-part data that contains the content of the message turn.\"\n        }\n      }\n    },\n    \"RequestHasBytes\": {\n      \"type\": \"boolean\",\n      \"description\": \"Indicates if request has bytes\",\n      \"properties\": {\n      }\n    },\n    \"ResponseHasBytes\": {\n      \"type\": \"boolean\",\n      \"description\": \"Indicates if response has bytes\",\n      \"properties\": {\n      }\n    },\n    \"Path parameters\": {\n      \"type\": \"object\",\n      \"required\": [\"model\"],\n      \"properties\": {\n        \"model\": {\n          \"type\": \"string\",\n          \"description\": \"Required. The name of the publisher model requested to serve the prediction. Format: `projects/{project}/locations/{location}/publishers/*/models/*`\"\n        }\n      }\n    }\n  }\n}"
+  }, {
+    "key": "`Task_1_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"type\": \"array\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"ResponseBody\": {\n        \"type\": \"string\",\n        \"properties\": {\n        }\n      },\n      \"ResponseHeaders\": {\n        \"type\": \"object\",\n        \"description\": \"Response headers. Will consist of (key,value) and (key, list of value) pairs.\",\n        \"properties\": {\n        }\n      },\n      \"Status\": {\n        \"type\": \"number\",\n        \"description\": \"Status Code received.\",\n        \"properties\": {\n        }\n      }\n    },\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\n  }\n}"
+  }, {
+    "key": "Vertex_Path_Parameter",
+    "dataType": "STRING_VALUE",
+    "displayName": "Vertex_Path_Parameter"
+  }, {
+    "key": "CloudPubSubMessage",
+    "dataType": "JSON_VALUE",
+    "displayName": "CloudPubSubMessage",
+    "isTransient": true,
+    "producer": "2_2",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"title\": \"Cloud Pub/Sub Message\",\n  \"description\": \"Message received by Cloud Pub/Sub.\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\",\n      \"description\": \"The message data sent by the publisher\"\n    },\n    \"attributes\": {\n      \"type\": \"object\",\n      \"description\": \"Attributes for this message\"\n    },\n    \"messageId\": {\n      \"type\": \"string\",\n      \"description\": \"ID of this message, assigned by the server when the message is published. Guaranteed to be unique within the topic.\"\n    },\n    \"publishTime\": {\n      \"type\": \"string\",\n      \"description\": \"The time at which the message was published, populated by the server when it receives the topics.publish call\"\n    },\n    \"orderingKey\": {\n      \"type\": \"string\",\n      \"description\": \"Identifies related messages for which publish order should be respected.\"\n    }\n  }\n}"
+  }, {
+    "key": "pub-sub-trigger-message-data",
+    "dataType": "JSON_VALUE",
+    "displayName": "pub-sub-trigger-message-data",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"publishTime\": {\n      \"type\": \"string\"\n    },\n    \"data\": {\n      \"type\": \"string\"\n    },\n    \"messageId\": {\n      \"type\": \"string\"\n    },\n    \"attributes\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"objectGeneration\": {\n          \"type\": \"string\"\n        },\n        \"eventTime\": {\n          \"type\": \"string\"\n        },\n        \"bucketId\": {\n          \"type\": \"string\"\n        },\n        \"eventType\": {\n          \"type\": \"string\"\n        },\n        \"notificationConfig\": {\n          \"type\": \"string\"\n        },\n        \"payloadFormat\": {\n          \"type\": \"string\"\n        },\n        \"objectId\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}"
+  }, {
+    "key": "prompt-input-file-uri",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": "gs://standalone-ip-prod-testing-88-app-integration-sample/"
+    },
+    "displayName": "prompt-input-file-uri"
+  }, {
+    "key": "object_id_gcs",
+    "dataType": "STRING_VALUE",
+    "displayName": "object_id_gcs"
+  }, {
+    "key": "filedata-temp",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"mimeType\": \"application/pdf\",\n  \"fileUri\": \"gs://standalone-ip-prod-testing-88-app-integration-sample/vertex-ai-sample/682.711 m3.pdf\"\n}"
+    },
+    "displayName": "filedata-temp",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"fileUri\": {\n      \"type\": \"string\"\n    },\n    \"mimeType\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "request_content",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "[{\n  \"role\": \"user\",\n  \"parts\": [{\n    \"text\": \"User prompt is:\\nPlease identify the PoS document.\"\n  }, {\n    \"fileData\": {\n      \"mimeType\": \"application/pdf\",\n      \"fileUri\": \"gs://standalone-ip-prod-testing-88-app-integration-sample/vertex-ai-sample/682.711 m3.pdf\"\n    }\n  }, {\n    \"text\": \"Respond only as [Green, Blue, Miscellaneous, Incorrect Documentation]\"\n  }]\n}]"
+    },
+    "displayName": "request_content"
+  }, {
+    "key": "request_content_tmp",
+    "dataType": "STRING_VALUE",
+    "displayName": "request_content_tmp"
+  }],
+  "databasePersistencePolicy": "DATABASE_PERSISTENCE_ASYNC",
+  "integrationConfigParameters": [{
+    "parameter": {
+      "key": "`CONFIG_Vertex_Project_ID`",
+      "dataType": "STRING_VALUE",
+      "defaultValue": {
+        "stringValue": "standalone-ip-prod-testing-88"
+      },
+      "displayName": "`CONFIG_Vertex_Project_ID`"
+    },
+    "value": {
+      "stringValue": "standalone-ip-prod-testing-88"
+    }
+  }, {
+    "parameter": {
+      "key": "`CONFIG_Vertex_LOCATION_ID`",
+      "dataType": "STRING_VALUE",
+      "defaultValue": {
+        "stringValue": "us-central1"
+      },
+      "displayName": "`CONFIG_Vertex_LOCATION_ID`"
+    },
+    "value": {
+      "stringValue": "us-central1"
+    }
+  }, {
+    "parameter": {
+      "key": "`CONFIG_Vertex_MODEL_ID`",
+      "dataType": "STRING_VALUE",
+      "defaultValue": {
+        "stringValue": "gemini-1.5-flash-002"
+      },
+      "displayName": "`CONFIG_Vertex_MODEL_ID`"
+    },
+    "value": {
+      "stringValue": "gemini-1.5-flash-002"
+    }
+  }]
+}
