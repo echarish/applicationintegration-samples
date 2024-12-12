@@ -149,8 +149,8 @@
     },
     {
       "type": "rectangle",
-      "version": 165,
-      "versionNonce": 1415179892,
+      "version": 179,
+      "versionNonce": 1761923554,
       "isDeleted": false,
       "id": "qREBFrcMNyuPtyXBNl76V",
       "fillStyle": "solid",
@@ -159,8 +159,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 224.95703125,
-      "y": 286.46484375,
+      "x": 97.35736083984375,
+      "y": 291.7274475097656,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
       "width": 237.62109375,
@@ -181,14 +181,14 @@
           "type": "arrow"
         }
       ],
-      "updated": 1733915236791,
+      "updated": 1734012992269,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 46,
-      "versionNonce": 1860876404,
+      "version": 60,
+      "versionNonce": 236209570,
       "isDeleted": false,
       "id": "4UXQrRUlbwvNB4If9i3QD",
       "fillStyle": "solid",
@@ -197,8 +197,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 304.5576171875,
-      "y": 317.294921875,
+      "x": 176.95794677734375,
+      "y": 322.5575256347656,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
       "width": 78.419921875,
@@ -208,7 +208,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1733915211063,
+      "updated": 1734012992269,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -345,8 +345,8 @@
     },
     {
       "type": "arrow",
-      "version": 52,
-      "versionNonce": 1031536628,
+      "version": 80,
+      "versionNonce": 1268040994,
       "isDeleted": false,
       "id": "6HCtogosq1sy9OiCMjzP7",
       "fillStyle": "solid",
@@ -355,12 +355,12 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 343.25,
-      "y": 377.3828125,
+      "x": 234.37543962954646,
+      "y": 382.6454162597656,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 196.265625,
-      "height": 140.13671875,
+      "width": 304.57768537045354,
+      "height": 152.55638342227667,
       "seed": 1844279116,
       "groupIds": [],
       "frameId": null,
@@ -368,7 +368,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1733915236791,
+      "updated": 1734012992269,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -390,8 +390,8 @@
           0
         ],
         [
-          196.265625,
-          140.13671875
+          304.57768537045354,
+          152.55638342227667
         ]
       ]
     },
