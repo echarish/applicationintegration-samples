@@ -1,0 +1,7 @@
+{
+  "`CONFIG_Vertex_Project_ID`": "standalone-ip-prod-testing-88",
+  "`CONFIG_Vertex_LOCATION_ID`": "us-central1",
+  "`CONFIG_Vertex_MODEL_ID`": "gemini-1.5-flash-002",
+  "`CONFIG_GCS_POS_BUCKET`": "standalone-ip-prod-testing-88-app-integration-sample",
+  "`CONFIG_POS_GCS_FOLDER`": "vertex-ai-sample/"
+}
