@@ -1,0 +1,836 @@
+{
+  "name": "projects/251385050087/locations/europe-west2/integrations/recursive-api-call-demo-video/versions/faed0fbd-24b4-4c88-9a6f-44accefbc72d",
+  "updateTime": "2024-12-13T09:18:54.344Z",
+  "createTime": "2024-12-12T16:52:58.996Z",
+  "lastModifierEmail": "harishgoogler@google.com",
+  "triggerConfigs": [{
+    "label": "MainControllerTrigger",
+    "startTasks": [{
+      "taskId": "1"
+    }],
+    "properties": {
+      "Trigger name": "maincontrollertrigger"
+    },
+    "triggerType": "API",
+    "triggerNumber": "1",
+    "triggerId": "api_trigger/maincontrollertrigger",
+    "position": {
+      "x": 140,
+      "y": 45
+    },
+    "inputVariables": {
+      "names": ["product-current-skip-value", "product-info"]
+    },
+    "outputVariables": {
+    }
+  }, {
+    "label": "Fetch Product Info",
+    "startTasks": [{
+      "taskId": "5"
+    }],
+    "properties": {
+      "Trigger name": "private-fetchproductinfo"
+    },
+    "triggerType": "PRIVATE_TRIGGER",
+    "triggerNumber": "2",
+    "triggerId": "private_trigger/private-fetchproductinfo",
+    "position": {
+      "x": 620,
+      "y": 45
+    }
+  }, {
+    "label": "Write to BQ",
+    "startTasks": [{
+      "taskId": "8"
+    }],
+    "properties": {
+      "Trigger name": "private-writetobq"
+    },
+    "triggerType": "PRIVATE_TRIGGER",
+    "triggerNumber": "3",
+    "triggerId": "private_trigger/private-writetobq",
+    "position": {
+      "x": 1043,
+      "y": 37
+    }
+  }],
+  "taskConfigs": [{
+    "task": "GenericRestV2Task",
+    "taskId": "1",
+    "parameters": {
+      "throwError": {
+        "key": "throwError",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "responseBody": {
+        "key": "responseBody",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_1_responseBody`$"]
+          }
+        }
+      },
+      "disableSSLValidation": {
+        "key": "disableSSLValidation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "httpParams": {
+        "key": "httpParams"
+      },
+      "authConfigName": {
+        "key": "authConfigName",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "responseHeader": {
+        "key": "responseHeader",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_1_responseHeader`$"]
+          }
+        }
+      },
+      "userAgent": {
+        "key": "userAgent",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "httpMethod": {
+        "key": "httpMethod",
+        "value": {
+          "stringValue": "GET"
+        }
+      },
+      "responseStatus": {
+        "key": "responseStatus",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_1_responseStatus`$"]
+          }
+        }
+      },
+      "timeout": {
+        "key": "timeout",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "url": {
+        "key": "url",
+        "value": {
+          "stringValue": "https://dummyjson.com/products"
+        }
+      },
+      "useSSL": {
+        "key": "useSSL",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "urlFetchingService": {
+        "key": "urlFetchingService",
+        "value": {
+          "stringValue": "HARPOON"
+        }
+      },
+      "urlQueryStrings": {
+        "key": "urlQueryStrings",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.ParameterMap\",\n  \"entries\": [{\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"limit\"\n      }\n    },\n    \"value\": {\n      \"literalValue\": {\n        \"stringValue\": \"1\"\n      }\n    }\n  }, {\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"skip\"\n      }\n    },\n    \"value\": {\n      \"literalValue\": {\n        \"stringValue\": \"0\"\n      }\n    }\n  }]\n}"
+        }
+      },
+      "requestorId": {
+        "key": "requestorId",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "jsonAdditionalHeaders": {
+        "key": "jsonAdditionalHeaders",
+        "value": {
+          "jsonValue": "null"
+        }
+      },
+      "requestBody": {
+        "key": "requestBody",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "followRedirects": {
+        "key": "followRedirects",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "additionalHeaders": {
+        "key": "additionalHeaders"
+      }
+    },
+    "nextTasks": [{
+      "taskId": "2"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Total Product Fetch",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 181
+    }
+  }, {
+    "task": "SubWorkflowScatterGatherTask",
+    "taskId": "10",
+    "parameters": {
+      "ignoreIndividualFailures": {
+        "key": "ignoreIndividualFailures",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "maxParallelScatters": {
+        "key": "maxParallelScatters",
+        "value": {
+          "intValue": "50"
+        }
+      },
+      "timeInMsToSchedule": {
+        "key": "timeInMsToSchedule",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "listToScatter": {
+        "key": "listToScatter",
+        "value": {
+          "stringValue": "$product-array$"
+        }
+      },
+      "subworkflowInput": {
+        "key": "subworkflowInput",
+        "value": {
+          "stringValue": "product-info"
+        }
+      },
+      "triggerId": {
+        "key": "triggerId",
+        "value": {
+          "stringValue": "private_trigger/private-writetobq"
+        }
+      },
+      "staggeredScheduleByBatch": {
+        "key": "staggeredScheduleByBatch",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "workflowName": {
+        "key": "workflowName",
+        "value": {
+          "stringValue": "recursive-api-call-demo-video"
+        }
+      },
+      "scatterResponseJson": {
+        "key": "scatterResponseJson",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_10_scatterResponseJson`$"]
+          }
+        }
+      },
+      "executionStrategy": {
+        "key": "executionStrategy",
+        "value": {
+          "stringValue": "SYNC"
+        }
+      },
+      "disableEucPropagation": {
+        "key": "disableEucPropagation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "requestParamsMap": {
+        "key": "requestParamsMap"
+      },
+      "responseAggregatorMap": {
+        "key": "responseAggregatorMap"
+      },
+      "scatterElementParam": {
+        "key": "scatterElementParam",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "inputMap": {
+        "key": "inputMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "aggregatorMap": {
+        "key": "aggregatorMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Call Write TO BQ",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 629,
+      "y": 541
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "2",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$`Task_1_responseBody`$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$totalrecordcount-response$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"DOUBLE_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$totalrecordcount-response.total$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$total-product-count$\",\n      \"fieldType\": \"DOUBLE_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "3"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "MapTotalRecordCount",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 317
+    }
+  }, {
+    "task": "JavaScriptTask",
+    "taskId": "3",
+    "parameters": {
+      "script": {
+        "key": "script",
+        "value": {
+          "stringValue": "\n/**\n * Function that is called during the JavaScript Task execution.\n * @param {IntegrationEvent} event\n */\nfunction executeScript(event) {\n\n\n    var total \u003d event.getParameter(\"total-product-count\");\n    var limit \u003d event.getParameter(\"skip-value-int\");\n\n\n    var skip_array\u003d[];\n\n    for(var i\u003d0;  i\u003c\u003d total; i +\u003d limit){\n        skip_array.push(i);\n    }\n\n    event.setParameter(\"skip-array-value\",skip_array);\n\n\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "6"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "JavaScript",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 453
+    }
+  }, {
+    "task": "GenericRestV2Task",
+    "taskId": "4",
+    "parameters": {
+      "throwError": {
+        "key": "throwError",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "responseBody": {
+        "key": "responseBody",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseBody`$"]
+          }
+        }
+      },
+      "disableSSLValidation": {
+        "key": "disableSSLValidation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "httpParams": {
+        "key": "httpParams"
+      },
+      "authConfigName": {
+        "key": "authConfigName",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "responseHeader": {
+        "key": "responseHeader",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseHeader`$"]
+          }
+        }
+      },
+      "userAgent": {
+        "key": "userAgent",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "httpMethod": {
+        "key": "httpMethod",
+        "value": {
+          "stringValue": "GET"
+        }
+      },
+      "responseStatus": {
+        "key": "responseStatus",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseStatus`$"]
+          }
+        }
+      },
+      "timeout": {
+        "key": "timeout",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "url": {
+        "key": "url",
+        "value": {
+          "stringValue": "https://dummyjson.com/products"
+        }
+      },
+      "useSSL": {
+        "key": "useSSL",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "urlFetchingService": {
+        "key": "urlFetchingService",
+        "value": {
+          "stringValue": "HARPOON"
+        }
+      },
+      "urlQueryStrings": {
+        "key": "urlQueryStrings",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.ParameterMap\",\n  \"entries\": [{\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"limit\"\n      }\n    },\n    \"value\": {\n      \"literalValue\": {\n        \"stringValue\": \"10\"\n      }\n    }\n  }, {\n    \"key\": {\n      \"literalValue\": {\n        \"stringValue\": \"skip\"\n      }\n    },\n    \"value\": {\n      \"referenceKey\": \"$product-current-skip-value-str$\"\n    }\n  }]\n}"
+        }
+      },
+      "requestorId": {
+        "key": "requestorId",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "jsonAdditionalHeaders": {
+        "key": "jsonAdditionalHeaders",
+        "value": {
+          "jsonValue": "null"
+        }
+      },
+      "requestBody": {
+        "key": "requestBody",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "followRedirects": {
+        "key": "followRedirects",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "additionalHeaders": {
+        "key": "additionalHeaders"
+      }
+    },
+    "nextTasks": [{
+      "taskId": "9"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Call Product Info",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 620,
+      "y": 317
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "5",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-current-skip-value$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"intFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$product-current-skip-value-str$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "4"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Data Mapping",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 620,
+      "y": 181
+    }
+  }, {
+    "task": "SubWorkflowScatterGatherTask",
+    "taskId": "6",
+    "parameters": {
+      "ignoreIndividualFailures": {
+        "key": "ignoreIndividualFailures",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "maxParallelScatters": {
+        "key": "maxParallelScatters",
+        "value": {
+          "intValue": "50"
+        }
+      },
+      "timeInMsToSchedule": {
+        "key": "timeInMsToSchedule",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "listToScatter": {
+        "key": "listToScatter",
+        "value": {
+          "stringValue": "$skip-array-value$"
+        }
+      },
+      "subworkflowInput": {
+        "key": "subworkflowInput",
+        "value": {
+          "stringValue": "product-current-skip-value"
+        }
+      },
+      "triggerId": {
+        "key": "triggerId",
+        "value": {
+          "stringValue": "private_trigger/private-fetchproductinfo"
+        }
+      },
+      "staggeredScheduleByBatch": {
+        "key": "staggeredScheduleByBatch",
+        "value": {
+          "intValue": "0"
+        }
+      },
+      "workflowName": {
+        "key": "workflowName",
+        "value": {
+          "stringValue": "recursive-api-call-demo-video"
+        }
+      },
+      "scatterResponseJson": {
+        "key": "scatterResponseJson",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_6_scatterResponseJson`$"]
+          }
+        }
+      },
+      "executionStrategy": {
+        "key": "executionStrategy",
+        "value": {
+          "stringValue": "SYNC"
+        }
+      },
+      "disableEucPropagation": {
+        "key": "disableEucPropagation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "requestParamsMap": {
+        "key": "requestParamsMap"
+      },
+      "responseAggregatorMap": {
+        "key": "responseAggregatorMap"
+      },
+      "scatterElementParam": {
+        "key": "scatterElementParam",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "inputMap": {
+        "key": "inputMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "aggregatorMap": {
+        "key": "aggregatorMap",
+        "value": {
+          "stringArray": {
+          }
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "For Each Parallel",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 589
+    }
+  }, {
+    "task": "GenericConnectorTask",
+    "taskId": "7",
+    "parameters": {
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "product_info_table"
+        }
+      },
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_7_connectorInputPayload`$"
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/europe-west2/connections/product-info-ds-connection"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_7_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "CREATE_ENTITY"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/global/providers/gcp/connectors/bigquery/versions/1"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Write To BQ",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 1049,
+      "y": 247
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "8",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-info.category$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_7_connectorInputPayload`.category$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-info.discountPercentage$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"doubleFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_7_connectorInputPayload`.discountPercentage$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-info.id$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"doubleFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_7_connectorInputPayload`.id$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-info.title$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_7_connectorInputPayload`.title$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$product-info.description$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_7_connectorInputPayload`.description$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "7"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Map Input Product to BQ",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 1045,
+      "y": 144
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "9",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$`Task_4_responseBody`$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$inner-product-response$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$inner-product-response.products$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$product-array$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "10"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Product Info Map",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 624,
+      "y": 439
+    }
+  }],
+  "integrationParameters": [{
+    "key": "`ExecutionMode`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionMode`",
+    "isTransient": true
+  }, {
+    "key": "`ErrorInfo`",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"message\": \"\",\n  \"code\": 0.0\n}"
+    },
+    "displayName": "`ErrorInfo`",
+    "isTransient": true,
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`ExecutionId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionId`",
+    "isTransient": true
+  }, {
+    "key": "`IntegrationName`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`IntegrationName`",
+    "isTransient": true
+  }, {
+    "key": "`Region`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Region`",
+    "isTransient": true
+  }, {
+    "key": "`ProjectId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ProjectId`",
+    "isTransient": true
+  }, {
+    "key": "`Task_1_responseHeader`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_responseHeader`",
+    "isTransient": true,
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_responseBody`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_responseBody`",
+    "isTransient": true,
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_responseStatus`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_responseStatus`",
+    "isTransient": true,
+    "producer": "1_1"
+  }, {
+    "key": "totalrecordcount-response",
+    "dataType": "JSON_VALUE",
+    "displayName": "totalrecordcount-response",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"total\": {\n      \"type\": \"number\"\n    },\n    \"limit\": {\n      \"type\": \"number\"\n    },\n    \"skip\": {\n      \"type\": \"number\"\n    },\n    \"products\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"images\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"thumbnail\": {\n            \"type\": \"string\"\n          },\n          \"minimumOrderQuantity\": {\n            \"type\": \"number\"\n          },\n          \"rating\": {\n            \"type\": \"number\"\n          },\n          \"returnPolicy\": {\n            \"type\": \"string\"\n          },\n          \"description\": {\n            \"type\": \"string\"\n          },\n          \"weight\": {\n            \"type\": \"number\"\n          },\n          \"warrantyInformation\": {\n            \"type\": \"string\"\n          },\n          \"title\": {\n            \"type\": \"string\"\n          },\n          \"tags\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"discountPercentage\": {\n            \"type\": \"number\"\n          },\n          \"reviews\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"date\": {\n                  \"type\": \"string\"\n                },\n                \"reviewerName\": {\n                  \"type\": \"string\"\n                },\n                \"reviewerEmail\": {\n                  \"type\": \"string\"\n                },\n                \"rating\": {\n                  \"type\": \"number\"\n                },\n                \"comment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"price\": {\n            \"type\": \"number\"\n          },\n          \"meta\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"createdAt\": {\n                \"type\": \"string\"\n              },\n              \"qrCode\": {\n                \"type\": \"string\"\n              },\n              \"barcode\": {\n                \"type\": \"string\"\n              },\n              \"updatedAt\": {\n                \"type\": \"string\"\n              }\n            }\n          },\n          \"shippingInformation\": {\n            \"type\": \"string\"\n          },\n          \"id\": {\n            \"type\": \"number\"\n          },\n          \"availabilityStatus\": {\n            \"type\": \"string\"\n          },\n          \"category\": {\n            \"type\": \"string\"\n          },\n          \"stock\": {\n            \"type\": \"number\"\n          },\n          \"sku\": {\n            \"type\": \"string\"\n          },\n          \"brand\": {\n            \"type\": \"string\"\n          },\n          \"dimensions\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"depth\": {\n                \"type\": \"number\"\n              },\n              \"width\": {\n                \"type\": \"number\"\n              },\n              \"height\": {\n                \"type\": \"number\"\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}"
+  }, {
+    "key": "total-product-count",
+    "dataType": "DOUBLE_VALUE",
+    "displayName": "total-product-count"
+  }, {
+    "key": "skip-value-int",
+    "dataType": "INT_VALUE",
+    "defaultValue": {
+      "intValue": "10"
+    },
+    "displayName": "skip-value-int"
+  }, {
+    "key": "skip-array-value",
+    "dataType": "INT_ARRAY",
+    "displayName": "skip-array-value"
+  }, {
+    "key": "`Task_4_responseHeader`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseHeader`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_responseBody`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseBody`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_responseStatus`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseStatus`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "product-current-skip-value",
+    "dataType": "INT_VALUE",
+    "displayName": "product-current-skip-value",
+    "inputOutputType": "IN"
+  }, {
+    "key": "product-current-skip-value-str",
+    "dataType": "STRING_VALUE",
+    "displayName": "product-current-skip-value-str"
+  }, {
+    "key": "`Task_6_scatterResponseJson`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_6_scatterResponseJson`",
+    "isTransient": true,
+    "producer": "1_6"
+  }, {
+    "key": "`Task_7_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_7_connectorInputPayload`",
+    "producer": "1_7",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"category\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"discountPercentage\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"id\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"title\": {\n      \"type\": [\"string\", \"null\"]\n    },\n    \"description\": {\n      \"type\": [\"string\", \"null\"]\n    }\n  }\n}"
+  }, {
+    "key": "`Task_7_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_7_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_7"
+  }, {
+    "key": "product-info",
+    "dataType": "JSON_VALUE",
+    "displayName": "product-info",
+    "inputOutputType": "IN",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"images\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"thumbnail\": {\n      \"type\": \"string\"\n    },\n    \"minimumOrderQuantity\": {\n      \"type\": \"number\"\n    },\n    \"rating\": {\n      \"type\": \"number\"\n    },\n    \"returnPolicy\": {\n      \"type\": \"string\"\n    },\n    \"description\": {\n      \"type\": \"string\"\n    },\n    \"weight\": {\n      \"type\": \"number\"\n    },\n    \"warrantyInformation\": {\n      \"type\": \"string\"\n    },\n    \"title\": {\n      \"type\": \"string\"\n    },\n    \"tags\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"discountPercentage\": {\n      \"type\": \"number\"\n    },\n    \"reviews\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"date\": {\n            \"type\": \"string\"\n          },\n          \"reviewerName\": {\n            \"type\": \"string\"\n          },\n          \"reviewerEmail\": {\n            \"type\": \"string\"\n          },\n          \"rating\": {\n            \"type\": \"number\"\n          },\n          \"comment\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"price\": {\n      \"type\": \"number\"\n    },\n    \"meta\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"createdAt\": {\n          \"type\": \"string\"\n        },\n        \"qrCode\": {\n          \"type\": \"string\"\n        },\n        \"barcode\": {\n          \"type\": \"string\"\n        },\n        \"updatedAt\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"shippingInformation\": {\n      \"type\": \"string\"\n    },\n    \"id\": {\n      \"type\": \"number\"\n    },\n    \"availabilityStatus\": {\n      \"type\": \"string\"\n    },\n    \"category\": {\n      \"type\": \"string\"\n    },\n    \"stock\": {\n      \"type\": \"number\"\n    },\n    \"sku\": {\n      \"type\": \"string\"\n    },\n    \"brand\": {\n      \"type\": \"string\"\n    },\n    \"dimensions\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"depth\": {\n          \"type\": \"number\"\n        },\n        \"width\": {\n          \"type\": \"number\"\n        },\n        \"height\": {\n          \"type\": \"number\"\n        }\n      }\n    }\n  }\n}"
+  }, {
+    "key": "inner-product-response",
+    "dataType": "JSON_VALUE",
+    "displayName": "inner-product-response",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"total\": {\n      \"type\": \"number\"\n    },\n    \"limit\": {\n      \"type\": \"number\"\n    },\n    \"skip\": {\n      \"type\": \"number\"\n    },\n    \"products\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"images\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"thumbnail\": {\n            \"type\": \"string\"\n          },\n          \"minimumOrderQuantity\": {\n            \"type\": \"number\"\n          },\n          \"rating\": {\n            \"type\": \"number\"\n          },\n          \"returnPolicy\": {\n            \"type\": \"string\"\n          },\n          \"description\": {\n            \"type\": \"string\"\n          },\n          \"weight\": {\n            \"type\": \"number\"\n          },\n          \"warrantyInformation\": {\n            \"type\": \"string\"\n          },\n          \"title\": {\n            \"type\": \"string\"\n          },\n          \"tags\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"discountPercentage\": {\n            \"type\": \"number\"\n          },\n          \"reviews\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"date\": {\n                  \"type\": \"string\"\n                },\n                \"reviewerName\": {\n                  \"type\": \"string\"\n                },\n                \"reviewerEmail\": {\n                  \"type\": \"string\"\n                },\n                \"rating\": {\n                  \"type\": \"number\"\n                },\n                \"comment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"price\": {\n            \"type\": \"number\"\n          },\n          \"meta\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"createdAt\": {\n                \"type\": \"string\"\n              },\n              \"qrCode\": {\n                \"type\": \"string\"\n              },\n              \"barcode\": {\n                \"type\": \"string\"\n              },\n              \"updatedAt\": {\n                \"type\": \"string\"\n              }\n            }\n          },\n          \"shippingInformation\": {\n            \"type\": \"string\"\n          },\n          \"id\": {\n            \"type\": \"number\"\n          },\n          \"availabilityStatus\": {\n            \"type\": \"string\"\n          },\n          \"category\": {\n            \"type\": \"string\"\n          },\n          \"stock\": {\n            \"type\": \"number\"\n          },\n          \"sku\": {\n            \"type\": \"string\"\n          },\n          \"brand\": {\n            \"type\": \"string\"\n          },\n          \"dimensions\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"depth\": {\n                \"type\": \"number\"\n              },\n              \"width\": {\n                \"type\": \"number\"\n              },\n              \"height\": {\n                \"type\": \"number\"\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}"
+  }, {
+    "key": "product-array",
+    "dataType": "JSON_VALUE",
+    "displayName": "product-array"
+  }, {
+    "key": "`Task_10_scatterResponseJson`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_10_scatterResponseJson`",
+    "isTransient": true,
+    "producer": "1_10"
+  }],
+  "databasePersistencePolicy": "DATABASE_PERSISTENCE_ASYNC"
+}
