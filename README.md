@@ -12,7 +12,7 @@
     - [Sample integration](docai-gcs-cloudsql-gemini-prompt/pos-prompt-sample-v46.json)
     - [YouTube Video](https://youtu.be/fA_HI11H_Pk)
 
-4. **Recursive REST API Paggination Calls** 
+4. **Recursive REST API Pagination Calls** 
     - [Sample integration](recursive-rest-api-pagination/recursive-restapi-page-limit-demo-v4.json)
     - [YouTube Video](https://youtu.be/SEpcgxCqWQI)
 
