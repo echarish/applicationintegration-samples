@@ -19,3 +19,8 @@
 5. **Paginated REST API to BigQuery**
     - [Sample integration](paginated-rest-api-write-to-bigquery/paginated-rest-api-write-to-bigquery-v5.json)
     - [YouTube Video](https://youtu.be/XF6lDOYvP9E)
+
+6. **OAuth Client Credentials API Call from App Integration**
+    - [Sample integration](oauth2-client-credential-api-callout/oauth2-client-credential-api-callout.excalidraw)
+    - [YouTube Video](https://youtu.be/xF3_-Lc3nJc)
+
