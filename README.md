@@ -24,3 +24,7 @@
     - [Sample integration](oauth2-client-credential-api-callout/oauth2-client-credential-api-callout.excalidraw)
     - [YouTube Video](https://youtu.be/xF3_-Lc3nJc)
 
+7. **Move Copy file in Google Cloud Storage**
+    - [Sample integration](move-gcs-file-objects/move-file-in-gcs-demo-v1.json)
+    - [YouTube Video](https://youtu.be/RhB5-29uE0s)
+

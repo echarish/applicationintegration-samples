@@ -1,0 +1,6 @@
+{
+    "bucket_source": "standalone-ip-prod-testing-88-app-integration-sample",
+    "bucket_destination": "standalone-ip-prod-testing-88-app-integration-sample",
+    "source_object_name": "file-source/Green-Sample-1.pdf",
+    "destination_object_name": "file-destination/Green-Sample-1-Moved.pdf"
+  }

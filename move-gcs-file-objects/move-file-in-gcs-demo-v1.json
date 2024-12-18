@@ -1,0 +1,174 @@
+{
+  "name": "projects/251385050087/locations/europe-west2/integrations/move-file-in-gcs-demo/versions/44b2c5e2-3d01-4ead-bbcf-4f39831808b6",
+  "updateTime": "2024-12-18T10:31:00.382Z",
+  "createTime": "2024-12-18T10:07:33.703Z",
+  "lastModifierEmail": "harishgoogler@google.com",
+  "triggerConfigs": [{
+    "label": "Trigger File Move",
+    "startTasks": [{
+      "taskId": "2"
+    }],
+    "properties": {
+      "Trigger name": "move-file-in-gcs-demo_API_1"
+    },
+    "triggerType": "API",
+    "triggerNumber": "1",
+    "triggerId": "api_trigger/move-file-in-gcs-demo_API_1",
+    "position": {
+      "x": 140,
+      "y": 45
+    },
+    "inputVariables": {
+    },
+    "outputVariables": {
+    }
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "1",
+    "parameters": {
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorInputPayload`$"
+        }
+      },
+      "authOverrideEnabled": {
+        "key": "authOverrideEnabled",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/europe-west2/connections/standalone-gcs"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "EXECUTE_ACTION"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/global/providers/gcp/connectors/gcs/versions/1"
+        }
+      },
+      "actionName": {
+        "key": "actionName",
+        "value": {
+          "stringValue": "MoveObject"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Move GCS File",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 317
+    }
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "2",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$gcs-move-data.bucket_destination$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.BucketDestination$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$gcs-move-data.bucket_source$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.BucketSource$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$gcs-move-data.source_object_name$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.ObjectSource$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$gcs-move-data.destination_object_name$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_1_connectorInputPayload`.ObjectDestination$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "1"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Data Mapping",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": 140,
+      "y": 181
+    }
+  }],
+  "integrationParameters": [{
+    "key": "`ExecutionMode`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionMode`",
+    "isTransient": true
+  }, {
+    "key": "`ErrorInfo`",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"message\": \"\",\n  \"code\": 0.0\n}"
+    },
+    "displayName": "`ErrorInfo`",
+    "isTransient": true,
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`ExecutionId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionId`",
+    "isTransient": true
+  }, {
+    "key": "`IntegrationName`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`IntegrationName`",
+    "isTransient": true
+  }, {
+    "key": "`Region`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Region`",
+    "isTransient": true
+  }, {
+    "key": "`ProjectId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ProjectId`",
+    "isTransient": true
+  }, {
+    "key": "`Task_1_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorInputPayload`",
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"ObjectDestination\": {\n      \"type\": [\"string\", \"null\"],\n      \"description\": \"New name of the object in the new bucket. If not specified, the name will be the same.\",\n      \"properties\": {\n      }\n    },\n    \"BucketSource\": {\n      \"type\": [\"string\", \"null\"],\n      \"description\": \"Bucket name where the object to be moved is located.\",\n      \"properties\": {\n      }\n    },\n    \"ObjectSource\": {\n      \"type\": [\"string\", \"null\"],\n      \"description\": \"Object name of the object that will be moved.\",\n      \"properties\": {\n      }\n    },\n    \"BucketDestination\": {\n      \"type\": [\"string\", \"null\"],\n      \"description\": \"Bucket name where the object will be moved to.\",\n      \"properties\": {\n      }\n    }\n  }\n}"
+  }, {
+    "key": "`Task_1_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"type\": \"array\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n    },\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\n  }\n}"
+  }, {
+    "key": "gcs-move-data",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"bucket_source\": \"standalone-ip-prod-testing-88-app-integration-sample\",\n  \"bucket_destination\": \"standalone-ip-prod-testing-88-app-integration-sample\",\n  \"source_object_name\": \"file-source/Green-Sample-1.pdf\",\n  \"destination_object_name\": \"file-destination/Green-Sample-1-Moved.pdf\"\n}"
+    },
+    "displayName": "gcs-move-data",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"bucket_destination\": {\n      \"type\": \"string\"\n    },\n    \"bucket_source\": {\n      \"type\": \"string\"\n    },\n    \"source_object_name\": {\n      \"type\": \"string\"\n    },\n    \"destination_object_name\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }],
+  "databasePersistencePolicy": "DATABASE_PERSISTENCE_ASYNC"
+}
