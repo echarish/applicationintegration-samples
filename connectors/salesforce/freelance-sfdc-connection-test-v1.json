@@ -1,0 +1,189 @@
+{
+  "name": "projects/251385050087/locations/europe-west2/integrations/freelance-sfdc-connection-test/versions/bee2d510-b58b-4631-9b61-7441cadcd67f",
+  "updateTime": "2024-12-19T12:04:00.410Z",
+  "createTime": "2024-12-19T11:47:13.672Z",
+  "lastModifierEmail": "harishgoogler@google.com",
+  "triggerConfigs": [{
+    "label": "API Trigger",
+    "startTasks": [{
+      "taskId": "1"
+    }],
+    "properties": {
+      "Trigger name": "freelance-sfdc-connection-test_API_1"
+    },
+    "triggerType": "API",
+    "triggerNumber": "1",
+    "triggerId": "api_trigger/freelance-sfdc-connection-test_API_1",
+    "position": {
+      "x": -260,
+      "y": -215
+    },
+    "inputVariables": {
+    },
+    "outputVariables": {
+    }
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "1",
+    "parameters": {
+      "listEntitiesSortByColumns": {
+        "key": "listEntitiesSortByColumns",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesSortByColumns`$"
+        }
+      },
+      "filterClause": {
+        "key": "filterClause",
+        "value": {
+          "stringValue": "$`Task_1_filterClause`$"
+        }
+      },
+      "listEntitiesPageToken": {
+        "key": "listEntitiesPageToken",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesPageToken`$"
+        }
+      },
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "Account"
+        }
+      },
+      "listEntitiesPageSize": {
+        "key": "listEntitiesPageSize",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesPageSize`$"
+        }
+      },
+      "authOverrideEnabled": {
+        "key": "authOverrideEnabled",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "listEntitiesNextPageToken": {
+        "key": "listEntitiesNextPageToken",
+        "value": {
+          "stringValue": "$`Task_1_listEntitiesNextPageToken`$"
+        }
+      },
+      "connectionName": {
+        "key": "connectionName",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/europe-west2/connections/freelance-sfdc-connection"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_1_connectorOutputPayload`$"
+        }
+      },
+      "operation": {
+        "key": "operation",
+        "value": {
+          "stringValue": "LIST_ENTITIES"
+        }
+      },
+      "connectionVersion": {
+        "key": "connectionVersion",
+        "value": {
+          "stringValue": "projects/standalone-ip-prod-testing-88/locations/global/providers/salesforce/connectors/salesforce/versions/1"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Freelance SFDC Fetch",
+    "externalTaskType": "NORMAL_TASK",
+    "position": {
+      "x": -259,
+      "y": -67
+    }
+  }],
+  "integrationParameters": [{
+    "key": "`ExecutionMode`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionMode`",
+    "isTransient": true
+  }, {
+    "key": "`ErrorInfo`",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "{\n  \"message\": \"\",\n  \"code\": 0.0\n}"
+    },
+    "displayName": "`ErrorInfo`",
+    "isTransient": true,
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+  }, {
+    "key": "`ExecutionId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ExecutionId`",
+    "isTransient": true
+  }, {
+    "key": "`IntegrationName`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`IntegrationName`",
+    "isTransient": true
+  }, {
+    "key": "`Region`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Region`",
+    "isTransient": true
+  }, {
+    "key": "`ProjectId`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`ProjectId`",
+    "isTransient": true
+  }, {
+    "key": "`Task_1_listEntitiesPageSize`",
+    "dataType": "INT_VALUE",
+    "displayName": "`Task_1_listEntitiesPageSize`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_listEntitiesPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_listEntitiesPageToken`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_listEntitiesSortByColumns`",
+    "dataType": "STRING_ARRAY",
+    "displayName": "`Task_1_listEntitiesSortByColumns`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_filterClause`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_filterClause`",
+    "producer": "1_1"
+  }, {
+    "key": "`Task_1_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_1_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_1",
+    "jsonSchema": "{\n  \"type\": [\"array\"],\n  \"items\": {\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n      \"ShippingGeocodeAccuracy\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping Geocode Accuracy corresponds to this field.\"\n      },\n      \"ShippingStreet\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping Street corresponds to this field.\"\n      },\n      \"ShippingCountry\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping Country corresponds to this field.\"\n      },\n      \"NumberOfEmployees\": {\n        \"type\": [\"integer\", \"null\"],\n        \"description\": \"Label Employees corresponds to this field.\"\n      },\n      \"BillingLatitude\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Billing Latitude corresponds to this field.\"\n      },\n      \"SLAExpirationDate__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label SLA Expiration Date corresponds to this field.\"\n      },\n      \"IsDeleted\": {\n        \"type\": \"boolean\",\n        \"description\": \"Label Deleted corresponds to this field.\"\n      },\n      \"BillingStreet\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing Street corresponds to this field.\"\n      },\n      \"NumberofLocations__c\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Number of Locations corresponds to this field.\"\n      },\n      \"Phone\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Phone corresponds to this field.\"\n      },\n      \"OwnerId\": {\n        \"type\": \"string\",\n        \"description\": \"Label Owner ID corresponds to this field.\"\n      },\n      \"Id\": {\n        \"type\": \"string\",\n        \"description\": \"Label Account ID corresponds to this field.\"\n      },\n      \"Name\": {\n        \"type\": \"string\",\n        \"description\": \"Label Account Name corresponds to this field.\"\n      },\n      \"CreatedById\": {\n        \"type\": \"string\",\n        \"description\": \"Label Created By ID corresponds to this field.\"\n      },\n      \"Sic\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label SIC Code corresponds to this field.\"\n      },\n      \"BillingState\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing State/Province corresponds to this field.\"\n      },\n      \"MasterRecordId\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Master Record ID corresponds to this field.\"\n      },\n      \"PhotoUrl\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Photo URL corresponds to this field.\"\n      },\n      \"SystemModstamp\": {\n        \"type\": \"string\",\n        \"description\": \"Label System Modstamp corresponds to this field.\"\n      },\n      \"Ownership\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Ownership corresponds to this field.\"\n      },\n      \"TickerSymbol\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Ticker Symbol corresponds to this field.\"\n      },\n      \"Description\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Description corresponds to this field.\"\n      },\n      \"NaicsCode\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label NAICS Code corresponds to this field.\"\n      },\n      \"SicDesc\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label SIC Description corresponds to this field.\"\n      },\n      \"DunsNumber\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label D-U-N-S Number corresponds to this field.\"\n      },\n      \"Industry\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Industry corresponds to this field.\"\n      },\n      \"ShippingState\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping State/Province corresponds to this field.\"\n      },\n      \"LastViewedDate\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Last Viewed Date corresponds to this field.\"\n      },\n      \"AccountSource\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Source corresponds to this field.\"\n      },\n      \"OperatingHoursId\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Operating Hour ID corresponds to this field.\"\n      },\n      \"NaicsDesc\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label NAICS Description corresponds to this field.\"\n      },\n      \"BillingGeocodeAccuracy\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing Geocode Accuracy corresponds to this field.\"\n      },\n      \"Website\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Website corresponds to this field.\"\n      },\n      \"Jigsaw\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Data.com Key corresponds to this field.\"\n      },\n      \"ShippingPostalCode\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping Zip/Postal Code corresponds to this field.\"\n      },\n      \"ParentId\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Parent Account ID corresponds to this field.\"\n      },\n      \"SLA__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label SLA corresponds to this field.\"\n      },\n      \"Rating\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Rating corresponds to this field.\"\n      },\n      \"Type\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Type corresponds to this field.\"\n      },\n      \"Tradestyle\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Tradestyle corresponds to this field.\"\n      },\n      \"Active__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Active corresponds to this field.\"\n      },\n      \"CleanStatus\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Clean Status corresponds to this field.\"\n      },\n      \"AnnualRevenue\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Annual Revenue corresponds to this field.\"\n      },\n      \"ShippingLongitude\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Shipping Longitude corresponds to this field.\"\n      },\n      \"LastReferencedDate\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Last Referenced Date corresponds to this field.\"\n      },\n      \"BillingCity\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing City corresponds to this field.\"\n      },\n      \"SLASerialNumber__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label SLA Serial Number corresponds to this field.\"\n      },\n      \"Fax\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Fax corresponds to this field.\"\n      },\n      \"UpsellOpportunity__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Upsell Opportunity corresponds to this field.\"\n      },\n      \"JigsawCompanyId\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Jigsaw Company ID corresponds to this field.\"\n      },\n      \"BillingPostalCode\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing Zip/Postal Code corresponds to this field.\"\n      },\n      \"ShippingLatitude\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Shipping Latitude corresponds to this field.\"\n      },\n      \"ShippingCity\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Shipping City corresponds to this field.\"\n      },\n      \"Site\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Site corresponds to this field.\"\n      },\n      \"LastModifiedDate\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Last Modified Date corresponds to this field.\"\n      },\n      \"CreatedDate\": {\n        \"type\": \"string\",\n        \"description\": \"Label Created Date corresponds to this field.\"\n      },\n      \"BillingLongitude\": {\n        \"type\": [\"number\", \"null\"],\n        \"description\": \"Label Billing Longitude corresponds to this field.\"\n      },\n      \"DandbCompanyId\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label D\\u0026B Company ID corresponds to this field.\"\n      },\n      \"CustomerPriority__c\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Customer Priority corresponds to this field.\"\n      },\n      \"LastModifiedById\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Last Modified By ID corresponds to this field.\"\n      },\n      \"YearStarted\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Year Started corresponds to this field.\"\n      },\n      \"LastActivityDate\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Last Activity corresponds to this field.\"\n      },\n      \"AccountNumber\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Account Number corresponds to this field.\"\n      },\n      \"BillingCountry\": {\n        \"type\": [\"string\", \"null\"],\n        \"description\": \"Label Billing Country corresponds to this field.\"\n      }\n    }\n  },\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\"\n}"
+  }, {
+    "key": "`Task_1_listEntitiesNextPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_1_listEntitiesNextPageToken`",
+    "isTransient": true,
+    "producer": "1_1"
+  }],
+  "databasePersistencePolicy": "DATABASE_PERSISTENCE_ASYNC"
+}
