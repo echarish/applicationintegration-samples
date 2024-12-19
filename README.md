@@ -30,5 +30,5 @@
 
 # Applicaiton Integration Connectors
 1. **Salesforce Connector** 
-    - [Sample integration](connectors/salesforce)
-    - [YouTube Video](https://youtu.be/nn7Imf36WPw)
+    - [Sample integration](connectors/salesforce/freelance-sfdc-connection-test-v1.json)
+    - [YouTube Video](https://youtu.be/eI3We_gCA-Y)
